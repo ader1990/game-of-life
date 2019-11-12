@@ -16,10 +16,6 @@ source $HOME/.cargo/env
 
 # Install wasm for rust
 curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
-source $HOME/.cargo/env
-
-# Install cargo-generate
-cargo install cargo-generate
 
 # Install Nodejs 12.13.0
 curl -sL https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh -o install_nvm.sh
