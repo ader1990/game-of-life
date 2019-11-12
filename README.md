@@ -1,9 +1,11 @@
-# Game of Life using Rust/Wasm/Node
+## Game of Life
+
+![gameoflifenice](https://user-images.githubusercontent.com/1412442/68679396-753ea980-0568-11ea-80fe-657e0e284dd7.PNG)
+
+## This project is an example of using rust / wasm and nodejs
 
 This is the code I got after following the tutorial:
 https://rustwasm.github.io/book/game-of-life/introduction.html
-
-![gameoflifenice](https://user-images.githubusercontent.com/1412442/68679396-753ea980-0568-11ea-80fe-657e0e284dd7.PNG)
 
 ## Steps to run:
 
