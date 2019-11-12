@@ -3,8 +3,6 @@
 This is the code I got after following the tutorial:
 https://rustwasm.github.io/book/game-of-life/introduction.html
 
-Example result with periodice pattern:
-
 ![gameoflifenice](https://user-images.githubusercontent.com/1412442/68679396-753ea980-0568-11ea-80fe-657e0e284dd7.PNG)
 
 ## Steps to run:
