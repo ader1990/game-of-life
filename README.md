@@ -3,6 +3,9 @@
 This is the code I got after following the tutorial:
 https://rustwasm.github.io/book/game-of-life/introduction.html
 
+Example result with periodice pattern:
+![gameoflifenice](https://user-images.githubusercontent.com/1412442/68679396-753ea980-0568-11ea-80fe-657e0e284dd7.PNG)
+
 ## Steps to run:
 
 ```bash
@@ -32,5 +35,4 @@ cd www && npm run start
 ```
 
 ## Result
-Navigate in the browser to `http://<ip>:8080`, you should see something like this:
-![gameoflife](https://user-images.githubusercontent.com/1412442/68677969-ae294f00-0565-11ea-9c35-fac8109b460f.PNG)
+Navigate in the browser to `http://<ip>:8080`.
