@@ -19,7 +19,34 @@
   </head>
   <body>
     <noscript>This page contains webassembly and javascript content, please enable javascript in your browser.</noscript>
+    <div id="menu">
+	    <button id="play-pause"></button>
+	    <div id="fps"></div>
+    </div>
     <canvas id="game-of-life-canvas"></canvas>
     <script src="./bootstrap.js"></script>
   </body>
 </html>
+
+<style>
+#menu {
+  float: left;
+  position: relative;
+}
+#play-pause {
+  margin-bottom: 20px;
+  font-size: 20px;
+  position: relative;
+  float:left;
+}
+
+#fps {
+  white-space: pre;
+  font-family: monospace;
+  margin-bottom: 20px;
+  font-size: 20px;
+  position: relative;
+  float:left;
+  margin-left: 20px;
+}
+</style>
