@@ -3,6 +3,9 @@ name = "game-of-life"
 version = "0.1.0"
 authors = ["Adrian Vladu <avladu@cloudbasesolutions.com>"]
 edition = "2018"
+description = "Conway's Game of Life using WebAssembly"
+repository = "https://github.com/ader1990/game-of-life"
+license = "Apache 2"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
