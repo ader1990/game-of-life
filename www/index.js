@@ -8,7 +8,8 @@ const DEAD_COLOR = "#300";
 const ALIVE_COLOR = "#FFF";
 
 let animationId = null;
-let stageBefore = [];
+let stageBefore0 = 'one';
+let stageBefore1 = '1one';
 
 // Construct the universe, and get its width and height.
 const universe = Universe.new();
@@ -71,27 +72,37 @@ const isPaused = () => {
   return animationId === null;
 };
 
+var cellsPtr = null;
+var cells = null;
+
 const renderLoop = () => {
   drawGrid();
-  var isFinished = drawCells();
-	if (!isFinished) {
-  for (var i=0; i<99; i++) {
+  drawCells();
+  for (var i=0; i<83; i++) {
   	universe.tick();
   }
+        cellsPtr = universe.cells();
+  	cells = JSON.stringify(new Uint8Array(memory.buffer, cellsPtr, width * height))
+	if (cells == stageBefore0 || cells == stageBefore1) {
+	  pause()
+	  return
+  	}
+	stageBefore1 = stageBefore0
+	stageBefore0 = cells
 
   animationId = requestAnimationFrame(renderLoop);
-	}
 };
 
 const playPauseButton = document.getElementById("play-pause");
+const resetButton = document.getElementById("reset");
 
 const play = () => {
-	  playPauseButton.textContent = "⏸";
+	  playPauseButton.textContent = "stop";
 	  renderLoop();
 };
 
 const pause = () => {
-	  playPauseButton.textContent = "▶";
+	  playPauseButton.textContent = "start";
 	  cancelAnimationFrame(animationId);
 	  animationId = null;
 };
@@ -103,6 +114,10 @@ playPauseButton.addEventListener("click", event => {
 			        pause();
 			      }
 });
+resetButton.addEventListener("click", event => {
+  universe.reset()
+  play()
+})
 
 const drawGrid = () => {
   ctx.beginPath();
@@ -128,14 +143,8 @@ const getIndex = (row, column) => {
 };
 
 const drawCells = () => {
-  const cellsPtr = universe.cells();
-  const cells = new Uint8Array(memory.buffer, cellsPtr, width * height);
-  if (JSON.stringify(cells) === JSON.stringify(stageBefore[0]) || JSON.stringify(cells) === JSON.stringify(stageBefore[1])) {
-	  //animationId = null
-	  //return true
-  }
-  stageBefore[1] = stageBefore[0]
-  stageBefore[0] = cells
+  const cellsPtr1 = universe.cells();
+  const cells1 = new Uint8Array(memory.buffer, cellsPtr1, width * height);
   ctx.beginPath();
 
 // Alive cells.
@@ -143,7 +152,7 @@ ctx.fillStyle = ALIVE_COLOR;
 for (let row = 0; row < height; row++) {
   for (let col = 0; col < width; col++) {
     const idx = getIndex(row, col);
-    if (cells[idx] !== Cell.Alive) {
+    if (cells1[idx] !== Cell.Alive) {
       continue;
     }
 
@@ -161,7 +170,7 @@ ctx.fillStyle = DEAD_COLOR;
 for (let row = 0; row < height; row++) {
   for (let col = 0; col < width; col++) {
     const idx = getIndex(row, col);
-    if (cells[idx] !== Cell.Dead) {
+    if (cells1[idx] !== Cell.Dead) {
       continue;
     }
 

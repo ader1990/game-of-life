@@ -182,6 +182,17 @@ fn live_neighbor_count(&self, row: u32, column: u32) -> u8 {
     pub fn cells(&self) -> *const Cell {
         self.cells.as_ptr()
     }
+    pub fn reset(&mut self, width: u32) {
+        self.cells = (0..self.width * self.height)
+            .map(|_i| {
+                if js_sys::Math::random() < 0.5 {
+                    Cell::Alive
+                } else {
+                    Cell::Dead
+                }
+            })
+            .collect();
+    }
 
     /// Set the width of the universe.
     ///
