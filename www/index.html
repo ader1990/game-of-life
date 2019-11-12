@@ -14,11 +14,13 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-color: #222;
   }
 </style>
   </head>
   <body>
     <noscript>This page contains webassembly and javascript content, please enable javascript in your browser.</noscript>
+    <p>Conway's Game of Life</p>
     <div id="menu">
 	    <button id="play-pause">start</button>
 	    <button id="reset">reset</button>
@@ -30,23 +32,41 @@
 </html>
 
 <style>
+p {
+  font-family: monospace;
+  color: white;
+  font-size: 30px;
+}
 #menu {
+  text-transform: uppercase;
   float: left;
   position: relative;
+  font-family: monospace;
 }
+
 #play-pause {
+  text-transform: uppercase;
+  width: 180px;
+  cursor: pointer;
+  height: 100px;
   margin-bottom: 20px;
   font-size: 20px;
   position: relative;
-  float:left;
+  float: left;
+  font-family: monospace;
 }
 
 #reset {
+  text-transform: uppercase;
+  cursor: pointer;
+  height: 100px;
+  width: 180px;
   margin-bottom: 20px;
   font-size: 20px;
   position: relative;
-  float:left;
-  margin-left: 20px;
+  float: right;
+  font-family: monospace;
+  background-color: #008CBA;
 }
 
 #fps {
@@ -57,5 +77,16 @@
   position: relative;
   float:left;
   margin-left: 20px;
+}
+button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  border-radius: 8px;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
 }
 </style>
