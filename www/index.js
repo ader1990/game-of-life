@@ -64,21 +64,21 @@ const renderLoop = () => {
     drawCells();
     for (var i = 0; i < 83; i++) {
         universe.tick();
-    }
-    cellsPtr = universe.cells();
-    cells = JSON.stringify(new Uint8Array(memory.buffer, cellsPtr, width * height))
-    if (cells == stageBefore0 || cells == stageBefore1) {
-        if (playUntilPeriodic) {
-            universe.reset()
-            play()
-        } else {
-            pause()
+        cellsPtr = universe.cells();
+        cells = JSON.stringify(new Uint8Array(memory.buffer, cellsPtr, width * height))
+        if (cells == stageBefore0 || cells == stageBefore1) {
+            if (playUntilPeriodic) {
+                universe.reset()
+                play()
+            } else {
+                pause()
+            }
+            return
         }
-        return
-    }
-    stageBefore1 = stageBefore0
-    stageBefore0 = cells
+        stageBefore1 = stageBefore0
+        stageBefore0 = cells
 
+    }
     animationId = requestAnimationFrame(renderLoop);
 };
 
