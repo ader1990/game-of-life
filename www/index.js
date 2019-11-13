@@ -74,6 +74,7 @@ const isPaused = () => {
 
 var cellsPtr = null;
 var cells = null;
+var playUntilPeriodic = false
 
 const renderLoop = () => {
   drawGrid();
@@ -84,7 +85,13 @@ const renderLoop = () => {
         cellsPtr = universe.cells();
   	cells = JSON.stringify(new Uint8Array(memory.buffer, cellsPtr, width * height))
 	if (cells == stageBefore0 || cells == stageBefore1) {
-	  pause()
+	  if (playUntilPeriodic) {
+  universe.reset()
+  play()
+	}
+		else {
+			pause()
+		}
 	  return
   	}
 	stageBefore1 = stageBefore0
@@ -95,6 +102,7 @@ const renderLoop = () => {
 
 const playPauseButton = document.getElementById("play-pause");
 const resetButton = document.getElementById("reset");
+const exploreButton = document.getElementById("explore");
 
 const play = () => {
 	  playPauseButton.textContent = "stop";
@@ -115,9 +123,17 @@ playPauseButton.addEventListener("click", event => {
 			      }
 });
 resetButton.addEventListener("click", event => {
+  playUntilPeriodic = false
   universe.reset()
   play()
 })
+
+exploreButton.addEventListener("click", event => {
+  playUntilPeriodic = true
+  universe.reset()
+  play()
+})
+
 
 const drawGrid = () => {
   ctx.beginPath();

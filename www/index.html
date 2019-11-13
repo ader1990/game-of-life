@@ -25,7 +25,7 @@
     <div id="menu">
 	    <button id="play-pause">start</button>
 	    <button id="reset">reset</button>
-	    <div id="fps"></div>
+	    <button id="explore">explore</button>
     </div>
     <canvas id="game-of-life-canvas"></canvas>
     <script src="./bootstrap.js"></script>
@@ -46,40 +46,29 @@ p {
 }
 
 #play-pause {
-  text-transform: uppercase;
-  width: 180px;
-  cursor: pointer;
-  height: 100px;
-  margin-bottom: 20px;
-  font-size: 20px;
-  position: relative;
-  float: left;
-  font-family: monospace;
 }
 
 #reset {
-  text-transform: uppercase;
-  cursor: pointer;
-  height: 100px;
-  width: 180px;
-  margin-bottom: 20px;
-  font-size: 20px;
-  position: relative;
-  float: right;
-  font-family: monospace;
   background-color: #008CBA;
-}
-
-#fps {
-  white-space: pre;
-  font-family: monospace;
-  margin-bottom: 20px;
-  font-size: 20px;
-  position: relative;
-  float:left;
   margin-left: 20px;
 }
+
+#explore {
+  margin-left: 20px;
+  background-color: #8f4caf;
+}
+
 button {
+  float: left;
+  text-transform: uppercase;
+  font-family: monospace;
+  font-size: 20px;
+  position: relative;
+  background-color: #008CBA;
+  cursor: pointer;
+  height: 100px;
+  width: 110px;
+  margin-bottom: 20px;
   background-color: #4CAF50; /* Green */
   border: none;
   border-radius: 8px;
@@ -90,4 +79,5 @@ button {
   display: inline-block;
   font-size: 16px;
 }
+button:focus { outline: none; }
 </style>
