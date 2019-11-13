@@ -27,6 +27,7 @@ let stageBefore1 = 'none';
 let cellsPtr = null;
 let cells = null;
 let playUntilPeriodic = false
+let tickNumber = 87
 
 canvas.height = (CELL_SIZE + 1) * height + 1;
 canvas.width = (CELL_SIZE + 1) * width + 1;
@@ -41,14 +42,17 @@ playPauseButton.addEventListener("click", event => {
         pause();
     }
 });
+
 resetButton.addEventListener("click", event => {
     playUntilPeriodic = false
+    tickNumber = 87
     universe.reset()
     play()
 })
 
 exploreButton.addEventListener("click", event => {
     playUntilPeriodic = true
+    tickNumber = 173
     universe.reset()
     play()
 })
@@ -62,23 +66,23 @@ const isPaused = () => {
 const renderLoop = () => {
     drawGrid();
     drawCells();
-    for (var i = 0; i < 83; i++) {
-        universe.tick();
-        cellsPtr = universe.cells();
-        cells = JSON.stringify(new Uint8Array(memory.buffer, cellsPtr, width * height))
-        if (cells == stageBefore0 || cells == stageBefore1) {
-            if (playUntilPeriodic) {
-                universe.reset()
-                play()
-            } else {
-                pause()
-            }
-            return
+    universe.tickMultiple(tickNumber);
+    cellsPtr = universe.cells();
+    cells = JSON.stringify(new Uint8Array(memory.buffer, cellsPtr, width * height))
+    if (cells == stageBefore0 || cells == stageBefore1) {
+        if (playUntilPeriodic) {
+            universe.reset()
+            play()
+        } else {
+            drawGrid();
+            drawCells();
+            pause()
         }
-        stageBefore1 = stageBefore0
-        stageBefore0 = cells
-
+        return
     }
+    stageBefore1 = stageBefore0
+    stageBefore0 = cells
+
     animationId = requestAnimationFrame(renderLoop);
 };
 

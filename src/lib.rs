@@ -114,6 +114,12 @@ fn live_neighbor_count(&self, row: u32, column: u32) -> u8 {
     count
 }
 
+    pub fn tickMultiple(&mut self, ticks: u32) {
+        for row in 0..ticks {
+            self.tick()
+        }
+    }
+
     pub fn tick(&mut self) {
         let mut next = self.cells.clone();
 
