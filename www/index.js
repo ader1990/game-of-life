@@ -21,13 +21,19 @@ const universe = Universe.new();
 const width = universe.width();
 const height = universe.height();
 
+const TICKER_DEFAULT = 1
+const REFRESH_DEFAULT = 5
+const TICKER_EXPLORE_DEFAULT = 25
+const REFRESH_EXPLORE_DEFAULT = 5
+
 let animationId = null;
 let stageBefore0 = 'one';
 let stageBefore1 = 'none';
 let cellsPtr = null;
 let cells = null;
 let playUntilPeriodic = false
-let tickNumber = 87
+let tickNumber = TICKER_DEFAULT
+let refreshRate = REFRESH_DEFAULT
 
 canvas.height = (CELL_SIZE + 1) * height + 1;
 canvas.width = (CELL_SIZE + 1) * width + 1;
@@ -45,14 +51,16 @@ playPauseButton.addEventListener("click", event => {
 
 resetButton.addEventListener("click", event => {
     playUntilPeriodic = false
-    tickNumber = 87
+    tickNumber = TICKER_DEFAULT
+    refreshRate = REFRESH_DEFAULT
     universe.reset()
     play()
 })
 
 exploreButton.addEventListener("click", event => {
     playUntilPeriodic = true
-    tickNumber = 173
+    tickNumber = TICKER_EXPLORE_DEFAULT
+    refreshRate = REFRESH_EXPLORE_DEFAULT
     universe.reset()
     play()
 })
@@ -64,25 +72,32 @@ const isPaused = () => {
 };
 
 const renderLoop = () => {
+    for (let i = 0; i < refreshRate; i++) {
+        universe.tickMultiple(tickNumber);
+        cellsPtr = universe.cells();
+        cells = JSON.stringify(new Uint8Array(memory.buffer, cellsPtr, width * height))
+        if (cells == stageBefore0 || cells == stageBefore1) {
+            if (playUntilPeriodic) {
+                tickNumber = TICKER_EXPLORE_DEFAULT
+                refreshRate = REFRESH_EXPLORE_DEFAULT
+                universe.reset()
+                play()
+            } else {
+                drawGrid();
+                drawCells();
+                pause()
+            }
+            return
+        }
+        stageBefore1 = stageBefore0
+        stageBefore0 = cells
+    }
+    if (playUntilPeriodic) {
+        if (tickNumber > 1) tickNumber--
+        if (refreshRate < 29) refreshRate++
+    }
     drawGrid();
     drawCells();
-    universe.tickMultiple(tickNumber);
-    cellsPtr = universe.cells();
-    cells = JSON.stringify(new Uint8Array(memory.buffer, cellsPtr, width * height))
-    if (cells == stageBefore0 || cells == stageBefore1) {
-        if (playUntilPeriodic) {
-            universe.reset()
-            play()
-        } else {
-            drawGrid();
-            drawCells();
-            pause()
-        }
-        return
-    }
-    stageBefore1 = stageBefore0
-    stageBefore0 = cells
-
     animationId = requestAnimationFrame(renderLoop);
 };
 
